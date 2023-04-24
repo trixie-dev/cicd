@@ -1,22 +1,17 @@
-version: 2.1
-
+version: '2.1'
 orbs:
-  unity: game-ci/unity@1.2
-
+  node: circleci/node@x.y
+jobs:
+  install-node-example:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+          node-version: '16.13'
+      - run: node --version
 workflows:
-  build-unity-project:
+  test_my_app:
     jobs:
-      - unity/build:
-          name: 'build-Windows64-il2cpp'
-          step-name: 'Build project for Windows using Cloud'
-          unity-license-var-name: 'UNITY_ENCODED_LICENSE'
-          unity-username-var-name: 'UNITY_USERNAME'
-          unity-password-var-name: 'UNITY_PASSWORD'
-          executor:
-            name: 'unity/windows-2019'
-            size: 'large'
-            editor_version: '2021.3.2f1'
-            target_platform: 'windows-il2cpp'
-          project-path: 'Unity2D-Demo-Game-CI-CD/src'
-          build-target: StandaloneWindows64
-          context: unity
+      - install-node-example
