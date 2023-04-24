@@ -34,7 +34,6 @@ jobs:
           git lfs pull
           git add .
           git reset --hard
-
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
@@ -43,9 +42,7 @@ jobs:
           restore-keys: |
             Library-test-project-
             Library-
-
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2
+      - uses: game-ci/unity-test-runner@v2.0-alpha-5
         id: testRunner
         with:
           testMode: ${{ matrix.testMode }}
@@ -82,7 +79,6 @@ jobs:
           git lfs pull
           git add .
           git reset --hard
-
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
@@ -91,7 +87,6 @@ jobs:
           restore-keys: |
             Library-build-
             Library-
-
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: WebGL
@@ -126,7 +121,6 @@ jobs:
           git lfs pull
           git add .
           git reset --hard
-
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
@@ -135,7 +129,6 @@ jobs:
           restore-keys: |
             Library-build-
             Library-
-
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneWindows64
@@ -170,7 +163,6 @@ jobs:
           git lfs pull
           git add .
           git reset --hard
-
       - name: Restore Library cache
         uses: actions/cache@v2
         with:
@@ -179,7 +171,6 @@ jobs:
           restore-keys: |
             Library-build-
             Library-
-
       - uses: game-ci/unity-builder@v2
         with:
           targetPlatform: Android
