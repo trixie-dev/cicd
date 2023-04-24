@@ -1,22 +1,33 @@
 version: 2.1
-
+setup: true
 orbs:
-  unity: game-ci/unity@1.2
+  orb-tools: circleci/orb-tools@11.1
+  shellcheck: circleci/shellcheck@3.1
+
+filters: &filters
+  tags:
+    only: /.*/
 
 workflows:
-  build-unity-project:
+  lint-pack:
     jobs:
-      - unity/build:
-          name: 'build-Windows64-il2cpp'
-          step-name: 'Build project for Windows using Cloud'
-          unity-license-var-name: 'UNITY_ENCODED_LICENSE'
-          unity-username-var-name: 'UNITY_USERNAME'
-          unity-password-var-name: 'UNITY_PASSWORD'
-          executor:
-            name: 'unity/windows-2019'
-            size: 'large'
-            editor_version: '2021.3.2f1'
-            target_platform: 'windows-il2cpp'
-          project-path: 'Unity2D-Demo-Game-CI-CD/src'
-          build-target: StandaloneWindows64
-          context: unity
+      - orb-tools/lint:
+          filters: *filters
+      - orb-tools/pack:
+          filters: *filters
+      - orb-tools/review:
+          filters: *filters
+      - shellcheck/check:
+          filters: *filters
+      - orb-tools/publish:
+          orb-name: game-ci/unity
+          vcs-type: << pipeline.project.type >>
+          requires:
+            [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
+          context: orb-publishing
+          filters: *filters
+      - orb-tools/continue:
+          pipeline-number: << pipeline.number >>
+          vcs-type: << pipeline.project.type >>
+          requires: [orb-tools/publish]
+          filters: *filters
