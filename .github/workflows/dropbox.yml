@@ -17,6 +17,6 @@ jobs:
           path: empty.txt
       - uses: whalemare/action-dropbox@v1.0.0
         with:
-          ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          FILE_PATH: ${{ steps.testRunner.outputs.artifactsPath }}
-          DROPBOX_PATH: /test-results
+          accessToken: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+          file: empty.txt
+          destination: /test-results
