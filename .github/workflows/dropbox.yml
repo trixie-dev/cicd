@@ -15,8 +15,10 @@ jobs:
         with:
           name: empty
           path: empty.txt
-      - uses: whalemare/action-dropbox@v1.0.0
+      - name: Deploy to Dropbox
+        uses: aTable/deploy-to-dropbox@v1.0.7
         with:
-          accessToken: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          file: empty.txt
-          destination: /
+          ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+          FILE_PATH: empty.txt
+          DROPBOX_PATH: /test-results
+
