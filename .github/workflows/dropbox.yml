@@ -20,5 +20,5 @@ jobs:
         with:
           DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
           GLOB: empty.txt
-          DROPBOX_DESTINATION_PATH_PREFIX: /
+          DROPBOX_DESTINATION_PATH_PREFIX: /artifacts
 
