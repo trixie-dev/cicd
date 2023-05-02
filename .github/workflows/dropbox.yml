@@ -10,12 +10,12 @@ jobs:
           touch empty.txt
         # Add empty.txt to artifacts
         # Note: '**/*' includes all files and directories
-        - name: Upload artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: empty
           path: empty.txt
-        - uses: whalemare/action-dropbox@v1.0.0
+      - uses: whalemare/action-dropbox@v1.0.0
         with:
           ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
           FILE_PATH: ${{ steps.testRunner.outputs.artifactsPath }}
