@@ -15,9 +15,8 @@ jobs:
         with:
           name: empty
           path: empty.txt
-      - name: Upload to Dropbox
-        uses: andyjessop/dropbox-upload@v2
+      - uses: whalemare/action-dropbox@v1.0.0
         with:
-          ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          REMOTE_PATH: /test-results
-          LOCAL_PATH: empty.txt
+          accessToken: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
+          file: empty.txt
+          destination: /
